@@ -21,5 +21,5 @@ filestream.o: filestream.cc
 	g++ -c filestream.cc -o filestream.o
 
 clean:
-	$(RM) command stdio *.o
+	$(RM) command stdio filestream *.o
 
