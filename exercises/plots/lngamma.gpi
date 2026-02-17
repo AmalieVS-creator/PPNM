@@ -1,0 +1,9 @@
+set terminal svg background rgb "white"
+set output "lngamma.svg"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics in
+plot [-5:5][-5:5] \
+        "lngamma.data" using 1:2 with points title "log gamma points"\
+        ,lgamma(x)

@@ -1,0 +1,9 @@
+set terminal svg background rgb "white"
+set output "erf.svg"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics in
+plot [-2:2] \
+        "erf.data" using 1:2 with points title "Error points"\
+        ,erf(x)

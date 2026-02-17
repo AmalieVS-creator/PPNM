@@ -1,0 +1,9 @@
+set terminal svg background rgb "white"
+set output "sgamma.svg"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics in
+plot [-5:5][-5:5] \
+        "sgamma.data" using 1:2 with points title "gamma points"\
+        ,gamma(x)
