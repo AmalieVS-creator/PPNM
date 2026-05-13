@@ -13,4 +13,4 @@ sfuns.o: sfuns.h sfuns.cc
 
 
 clean:
-	$(RM) main main,o Out,txt *.o
+	$(RM) main *.o

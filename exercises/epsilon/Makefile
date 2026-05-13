@@ -13,4 +13,4 @@ addition.o: addition.cc addition.h
 doubles.o: doubles.cc doubles.h
 
 clean:
-	$(RM) main main,o Out,txt *.o
+	$(RM) main *.o

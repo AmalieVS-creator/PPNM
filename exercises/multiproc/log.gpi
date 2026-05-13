@@ -1,0 +1,1 @@
+set terminal png background "white" ;set output "Out.gnuplot.png" ;set tics out ;set title "Program running time as function of number of threads" ;set xlabel "number of threads" ;set ylabel "real time in seconds" ;set xtics 1 ;plot [0.9:*][0:*]     	"out.times" index 0 with linespoints title "c++" 	;

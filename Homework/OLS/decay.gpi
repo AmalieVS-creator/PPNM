@@ -1,0 +1,10 @@
+set terminal svg background rgb "white"
+set output "decay.svg"
+set xlabel "time (days)"
+set ylabel "Activity"
+set title "Decay"
+set key right top
+set tics in
+plot \
+        "data.dat" using 1:2:3 with yerrorbars pt 7 title "data"\
+        ,"decay.dat" using 1:2 with lines title "fit"

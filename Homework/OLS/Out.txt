@@ -1,0 +1,11 @@
+Fitting to data.
+	a: 142.404
+	lambda: 0.170624
+Halflife = 4.06242 days
+Real Halflife = 3.631 days
+Uncertainty matrix: 
+ 0.0012533 -0.00019706 
+-0.00019706 5.1217e-05 
+Uncertainty on a= 0.0354019
+Uncertainty on lambda= 0.00715662
+Uncertainty on halflife= 0.170394
