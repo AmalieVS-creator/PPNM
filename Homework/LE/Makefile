@@ -10,4 +10,4 @@ main.o: matrix.h
 
 
 clean:
-	$(RM) main main,o Out,txt *.o
+	$(RM) main main.o Out.txt *.o

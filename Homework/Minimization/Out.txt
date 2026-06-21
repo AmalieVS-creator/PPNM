@@ -1,0 +1,7 @@
+Minimum of Rosenbrock function (x,y)= 0.999901 0.999801
+Steps = 25
+Minimum of Himmelblau function (x,y)= -2.80512 3.13131
+Steps = 6
+Optimal parameters:
+m = 125.972, gamma = 0.735407, A = 2.29013
+Number of steps = 65

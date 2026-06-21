@@ -1,0 +1,9 @@
+set terminal svg background rgb "white"
+set output "dr_convergence.svg"
+set title "Fixed rmax"
+set xlabel "dr"
+set ylabel "eps 0"
+set key right bottom
+set tics out
+plot \
+"dr_convergence.dat" using 1:2 with lines title "Data"

@@ -1,0 +1,9 @@
+set terminal svg background rgb "white"
+set output "wave.svg"
+set xlabel "r"
+set ylabel "f(r)"
+set key right bottom
+set tics out
+plot \
+	 "wave.dat" using 1:2 with lines title "Numerical"\
+     ,"wave.dat" using 1:3 with lines title "Exact"

@@ -1,0 +1,11 @@
+set terminal svg background rgb "white"
+set output "linear.svg"
+set xlabel "x"
+set ylabel "y"
+set title "Linear"
+set key right top
+set tics in
+plot \
+"data.dat" using 1:2 with points pt 7 title "cos(x_i)", \
+"linear.dat" using 1:2 with lines title "linear spline", \
+"linear.dat" using 1:3 with lines title "integral"

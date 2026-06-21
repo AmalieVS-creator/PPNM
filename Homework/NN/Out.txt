@@ -1,0 +1,12 @@
+Test for plot in part A: 
+-1 exact = 0.353227 approx = 0.354498 diff = 0.00127133
+-0.8 exact = 0.149573 approx = 0.149778 diff = 0.000204743
+-0.6 exact = -0.456032 approx = -0.4562 diff = -0.000167887
+-0.4 exact = -0.843616 approx = -0.84331 diff = 0.00030594
+-0.2 exact = -0.399829 approx = -0.400542 diff = -0.000712126
+-5.55112e-17 exact = 0.540302 approx = 0.541506 diff = 0.00120366
+0.2 exact = 0.960789 approx = 0.959136 diff = -0.00165375
+0.4 exact = 0.460415 approx = 0.462245 diff = 0.00183022
+0.6 exact = -0.290336 approx = -0.291952 diff = -0.00161629
+0.8 exact = -0.522016 approx = -0.520671 diff = 0.00134477
+1 exact = -0.240462 approx = -0.245356 diff = -0.00489439

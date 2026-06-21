@@ -43,7 +43,7 @@ struct EVD{
 						changed=true;
 						timesJ(A,p,q, theta); // A←A*J 
 						Jtimes(A,p,q,-theta); // A←JT*A 
-					timesJ(V,p,q, theta); // V←V*J
+						timesJ(V,p,q, theta); // V←V*J
 					}
 			}
 		}while(changed);

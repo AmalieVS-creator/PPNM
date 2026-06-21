@@ -1,0 +1,32 @@
+Rosenbrock min: 0.999937 0.999856
+Himmelblau min: -2.80512 3.13131
+
+Ground state energy E0 = -0.5
+Data written to wave.dat
+
+================ CONVERGENCE STUDY ================
+rmax = 6 -> E0 = -0.499328
+rmax = 8 -> E0 = -0.5
+rmax = 10 -> E0 = -0.500048
+rmax = 12 -> E0 = -0.50004
+
+--- rmin study ---
+rmin = 0.01 -> E0 = -0.5
+rmin = 0.001 -> E0 = -0.5
+rmin = 0.0001 -> E0 = -0.5
+
+================ END STUDY ================
+
+--- acc / eps study ---
+acc = 0.1, eps = 0.1 -> E0 = -0.501978
+
+acc=0.1 eps=0.1 E0=-0.501978 M(E0)=0.00165611
+acc = 0.01, eps = 0.01 -> E0 = -0.5
+
+acc=0.01 eps=0.01 E0=-0.5 M(E0)=-0.00329394
+acc = 0.001, eps = 0.001 -> E0 = -0.5
+
+acc=0.001 eps=0.001 E0=-0.5 M(E0)=0.00262568
+acc = 0.0001, eps = 0.0001 -> E0 = -0.5
+
+acc=0.0001 eps=0.0001 E0=-0.5 M(E0)=0.00268402

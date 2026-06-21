@@ -1,0 +1,3 @@
+Computing ODE: u'' = -u 
+cos(π) = -0.999999, rkstep12 at π: -1.00013
+Data written to pendulum.dat

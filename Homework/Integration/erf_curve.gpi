@@ -1,0 +1,10 @@
+set terminal svg background rgb "white"
+set output "erf_curve.svg"
+
+set xlabel "acc"
+set xlabel "x"
+set ylabel "erf(x)"
+set grid
+
+plot \
+"erf_curve.dat" using 1:2 with linespoints pt 7 title "error"

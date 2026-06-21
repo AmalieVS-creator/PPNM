@@ -1,0 +1,9 @@
+set terminal svg background rgb "white"
+set output "Higgs.svg"
+set xlabel "Energy"
+set ylabel "Signal"
+set title "Breit-Wigner"
+set key right top
+set tics in
+plot "data.dat" using 1:2:3 with yerrorbars pt 7 title "data", \
+     "fit.dat" using 1:2 with lines lw 2 title "fit"

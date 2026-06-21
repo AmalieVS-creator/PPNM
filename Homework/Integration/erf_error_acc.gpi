@@ -1,0 +1,11 @@
+set terminal svg background rgb "white"
+set output "erf_error_acc.svg"
+set logscale xy
+set xlabel "acc"
+set ylabel "absolute error at erf(1)"
+set title "Convergence of erf(1)"
+
+set grid
+
+plot \
+"erf_error_acc.dat" using 1:2 with linespoints pt 7 title "error"

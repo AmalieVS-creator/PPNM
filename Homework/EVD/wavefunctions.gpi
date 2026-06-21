@@ -1,0 +1,10 @@
+set terminal svg background rgb "white"
+set output "wavefunctions.svg"
+set title "Fixed rmax"
+set xlabel "dr"
+set ylabel "eps 0"
+set key right bottom
+set tics out
+plot "wavefunctions.dat" index 0 using 2:3 with lines title "n=1", \
+     "wavefunctions.dat" index 1 using 2:3 with lines title "n=2", \
+     "wavefunctions.dat" index 2 using 2:3 with lines title "n=3"

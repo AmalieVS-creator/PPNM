@@ -1,0 +1,9 @@
+set terminal svg background rgb "white"
+set output "groundstate.svg"
+set title "Eigenvectors"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics out
+plot \
+"groundstate.dat" using 1:2 with lines title "Data"

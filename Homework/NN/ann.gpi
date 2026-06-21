@@ -1,0 +1,10 @@
+set terminal svg background rgb "white"
+set output "ann.svg"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics out
+plot \
+    "ann.dat" index 0 with lines title "NN", \
+    "ann.dat" index 1 with lines title "True function", \
+    "ann.dat" index 2 with points pt 7 title "Samples"

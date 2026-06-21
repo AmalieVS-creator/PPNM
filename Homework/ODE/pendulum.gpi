@@ -1,0 +1,9 @@
+set terminal svg background rgb "white"
+set output "pendulum.svg"
+set xlabel "t"
+set ylabel "y"
+set title "Pendulum"
+set key right top
+set tics in
+plot "pendulum.dat" using 1:2 with lines title "theta(t)", \
+     "pendulum.dat" using 1:3 with lines title "omega(t)"

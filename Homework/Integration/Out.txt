@@ -1,0 +1,15 @@
+Test 1 = 0.666954
+Test 2 = 1.99996
+Test 3 = 0.785812
+Test 4 = -3.99992
+sqrt(x): q=0.666954.   Within accuracy: 1
+1/sqrt(x): q=1.99996.   Within accuracy: 1
+sqrt(1-x^2): q=0.785812.   Within accuracy: 1
+log(x)/sqrt(x): q=-3.99992.   Within accuracy: 1
+
+ Opgave B
+1/sqrt(x): q = 1.99999 | ncalls = 16
+Ordinary 1/sqrt(x): q = 1.99996 | ncalls = 8572
+log(x)/sqrt(x): q = -3.99987 | ncalls = 96
+Ordinary log(x)/sqrt(x): q = -3.99992 | ncalls = 8604
+exp(-x) from 0 to inf: q = 0.998397 | approx = 0 | ncalls = 32

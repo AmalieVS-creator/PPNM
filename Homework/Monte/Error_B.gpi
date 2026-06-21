@@ -1,0 +1,12 @@
+set terminal svg background rgb "white"
+set output "ErrorB.svg"
+set xlabel "error"
+set ylabel "y"
+set title "unit circle B"
+set key right top
+set logscale xy
+set tics in
+plot \
+        "ErrorB.dat" using 1:2 with lines title "estimated error"\
+        ,"ErrorB.dat" using 1:3 with lines title "actual error"\
+        ,"ErrorB.dat" using 1:4 with lines title "1/sqrt(N)"\

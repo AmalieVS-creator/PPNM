@@ -1,0 +1,11 @@
+set terminal svg background rgb "white"
+set output "partB.svg"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics out
+plot \
+    "partB.dat" using 1:2 with lines title "F(x)", \
+    "partB.dat" using 1:3 with lines title "F'(x)", \
+    "partB.dat" using 1:4 with lines title "F''(x)", \
+    "partB.dat" using 1:5 with lines title "Integral"

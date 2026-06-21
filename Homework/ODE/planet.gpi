@@ -1,0 +1,11 @@
+set terminal svg background rgb "white"
+set output "planet.svg"
+set xlabel "Angle phi"
+set ylabel "Radial coordinate"
+set title "Orbit"
+set key right top
+set tics in
+plot \
+"planet1.dat" using (1/$2)*cos($1):(1/$2)*sin($1) with lines title "case 1", \
+"planet2.dat" using (1/$2)*cos($1):(1/$2)*sin($1) with lines title "case 2", \
+"planet3.dat" using (1/$2)*cos($1):(1/$2)*sin($1) with lines title "case 3"

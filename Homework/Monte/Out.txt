@@ -1,0 +1,12 @@
+Area of unit circle:
+Integral = 3.13966
+Estimated Error    = 0.00164353
+Actual Error    = -0.00193265
+Crazy integral:
+Integral = 1.37408
+Estimated Error    = 0.00521936
+Actual value = 1.3932
+Actual Error    = -0.0191233
+Opgave B: 
+Integral = 3.1412
+Error    = 0.00048
