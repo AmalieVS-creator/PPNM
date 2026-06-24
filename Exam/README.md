@@ -4,7 +4,7 @@ This project computes the eigenvalues and eigenvectors of a matrix of the form
 
 A = D + e_p u^T + u e_p^T,
 
-where (D) is a diagonal matrix, (u) is a vector, and (e_p) is the (p)-th standard basis vector.
+where (D) is a diagonal matrix, (u) is a vector, and (e_p) is the (p)-th unit vector.
 
 The eigenvalues are obtained by solving the corresponding secular equation. The roots of the secular equation are located using interval bracketing and refined with Newton's method. To improve robustness, several bisection steps are performed before Newton iteration.
 
