@@ -1,0 +1,18 @@
+set terminal svg background rgb "white"
+set output "timing.svg"
+set title "Timing"
+set xlabel "Symmetric matrix of size n"
+set ylabel "Time [s]"
+set key left top
+set tics out
+f(x) = a * x**2
+g(x) = b * x**3
+a = 1
+b = 1
+fit f(x) "timing.dat" using 1:2 via a
+fit g(x) "timing.dat" using 1:3 via b
+plot \
+"timing.dat" using 1:2 with lines lc rgb "blue" title "Secular",\
+"timing.dat" using 1:3 with lines lc rgb "red" title "EVD",\
+f(x) with lines dt 2 lc rgb "blue" title "O(n^2) fit secular",\
+g(x) with lines dt 2 lc rgb "red" title "O(n^3) fit EVD"

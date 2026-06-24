@@ -17,7 +17,8 @@ pp::matrix jacobian(std::function<pp::vector(pp::vector)> f, pp::vector x, pp::v
     return J;
 }
 
-pp::vector newton(std::function<pp::vector(pp::vector)> f, pp::vector x, double acc, double alpha_min, int max_iter){
+
+pp::vector newton(std::function<pp::vector(pp::vector)> f, pp::vector x, double acc, double alpha_min, int max_iter, double a, double b){
     pp::vector fx=f(x);
     for (int i=0; i<max_iter; i++){
         // double norm = pp::norm(fx);
@@ -28,7 +29,12 @@ pp::vector newton(std::function<pp::vector(pp::vector)> f, pp::vector x, double 
         double alpha=1;
         pp::vector fz, z;
         while (true){
-            z=x+alpha*Dx;
+            // z=x+alpha*Dx;
+            z = x + alpha*Dx;
+
+            // enforce interval constraint
+            if (z[0] <= a) z[0] = a + 1e-12;
+            if (z[0] >= b) z[0] = b - 1e-12;
             fz=f(z);
             if (fz.norm()<(1-alpha/2)*fx.norm()){break;}
             // if (fz.norm()<fx.norm()){break;}
@@ -41,24 +47,3 @@ pp::vector newton(std::function<pp::vector(pp::vector)> f, pp::vector x, double 
     return x;
 }
 
-// double newton1d(
-//     std::function<double(double)> f,
-//     double x)
-// {
-//     for(int iter=0; iter<50; iter++)
-//     {
-//         double fx = f(x);
-
-//         if(std::abs(fx) < 1e-10)
-//             break;
-
-//         double dx = (std::abs(x)+1.0)*1e-8;
-
-//         double dfx =
-//             (f(x+dx)-fx)/dx;
-
-//         x -= fx/dfx;
-//     }
-
-//     return x;
-// }

@@ -1,38 +1,48 @@
 #pragma once
 
-#include <iostream>
+#include <cmath>
 #include <vector>
 #include <algorithm>
-#include <cmath>
-
-#include "matrix.h"
-#include "QR.h"
+#include <numeric>
+#include <iostream>
+#include <iomanip>
+#include <chrono>
+#include <fstream>
+#include <random>
 #include "root.h"
-
-using namespace pp;
-
-
-double secular(double lambda,
-               const pp::vector& d,
-               const pp::vector& u,
-               int p);
-
-double solve_root(const pp::vector& d,
-                  const pp::vector& u,
-                  int p,
-                  double left,
-                  double right);
-
-pp::vector fast_eigenvalues(const pp::vector& d,
-                             const pp::vector& u,
-                             int p);
-
-pp::matrix build_matrix(const pp::vector& d,
-                    const pp::vector& u,
-                    int p);
+#include "evd.h"
 
 
-void compare(std::vector<double> a,
-             std::vector<double> b);
+
+// Secular function and derivative for one lambda
+static void secular_one(const std::vector<double>& d,
+                         const std::vector<double>& u,
+                         int p,
+                         double lambda,
+                         double& f,
+                         double& df);
+
+static pp::vector compute_eigenvector(const std::vector<double>& d,
+                                       const std::vector<double>& u,
+                                       int p,
+                                       double lambda);
 
 
+
+
+
+std::pair<std::vector<double>, std::vector<pp::vector>> eigen_rank2_update(std::vector<double> d_in,
+                                        std::vector<double> u_in,
+                                        int p);
+
+
+pp::matrix build_A(const std::vector<double>& d,
+                   const std::vector<double>& u,
+                   int p);
+
+
+void verify_eigenvectors(const std::vector<double>& d,
+                          const std::vector<double>& u,
+                          int p,
+                          const std::vector<double>& eigenvalues,
+                          const std::vector<pp::vector>& eigenvectors);

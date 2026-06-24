@@ -1,147 +1,106 @@
-// #include <iostream>
-// #include <vector>
-// #include <cmath>
-// #include <algorithm>
-// #include <iomanip>
-
-// #include "matrix.h"
-// #include "symcol.h"
-// #include "QR.h"
-// #include "root.h"
-
-
-
-// int main()
-// {
-//     int n = 5;
-
-//     pp::vector d(n), u(n);
-
-//     d[0]=1; d[1]=2; d[2]=4; d[3]=7; d[4]=10;
-//     u[0]=0.2; u[1]=-0.3; u[2]=0.5; u[3]=0.1; u[4]=-0.4;
-
-//     int p = 2;
-
-//     /* fast method */
-//     pp::vector fast = fast_eigenvalues(d,u,p);
-
-//     /* QR method */
-//     pp::matrix A = build_matrix(d,u,p);
-
-//     pp::vector qr = qr_eigenvalues(A);
-
-//     /* convert to STL vectors */
-//     std::vector<double> a(fast.begin(), fast.end());
-//     std::vector<double> b(qr.begin(), qr.end());
-
-//     compare(a,b);
-// }
-
-#include <iostream>
-#include <vector>
-#include <functional>
 #include <cmath>
-#include"root.h"
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <iomanip>
+#include <chrono>
+#include <fstream>
+#include <random>
+#include "root.h"
+#include "evd.h"
+#include "symcol.h"
 
-// assume pp::vector is std::vector<double>
-// and pp::matrix, QR, norm etc already exist
 
-double secular(double lambda,
-               const pp::vector& d,
-               const pp::vector& u,
-               int p)
-{
-    double f = -(d[p] - lambda);
+// Made with chat bot
 
-    for(int k = 0; k < (int)d.size(); k++)
+int main(){
+    std::cout <<"Three tests have been made at n={4, 3, 5}\n";
+    std::cout <<"They show Secular and EVD estimate approximatly the same values. \n";
+    std::cout <<"The eigenvector for each eigenvalue has also been computed,\n";
+    std::cout <<"with residuales being very low.\n\n";
+
+    auto run_test = [&](const std::string& label,
+                        std::vector<double> d,
+                        std::vector<double> u,
+                        int p)
     {
-        if(k == p) continue;
-        f += (u[k] * u[k]) / (d[k] - lambda);
-    }
-    return f;
-}
+        int n = (int)d.size();
+        std::cout << "=== " << label << " ===\n";
+        auto [eigs, vecs] = eigen_rank2_update(d, u, p);
 
-// Wrap scalar -> vector for Newton
-std::function<pp::vector(pp::vector)>
-make_f(const pp::vector& d, const pp::vector& u, int p)
-{
-    return [&](pp::vector x)
-    {
-        pp::vector y(1);
-        y[0] = secular(x[0], d, u, p);
-        return y;
+        pp::matrix A = build_A(d, u, p);
+        pp::EVD evd(A);
+        std::vector<double> evd_eigs(n);
+        for (int i = 0; i < n; ++i) evd_eigs[i] = evd.w[i];
+        std::sort(evd_eigs.begin(), evd_eigs.end());
+
+        std::cout << std::setw(5)  << "k"
+                  << std::setw(20) << "Secular"
+                  << std::setw(20) << "EVD"
+                  << std::setw(20) << "|difference|" << "\n";
+        std::cout << std::string(65, '-') << "\n";
+        for (int i = 0; i < n; ++i) {
+            double diff = std::abs(eigs[i] - evd_eigs[i]);
+            std::cout << std::setw(5)  << i
+                      << std::setw(20) << std::setprecision(10) << eigs[i]
+                      << std::setw(20) << std::setprecision(10) << evd_eigs[i]
+                      << std::setw(20) << std::scientific        << diff << "\n";
+        }
+        std::cout << "\n";
+        verify_eigenvectors(d, u, p, eigs, vecs);
     };
-}
 
-// Evaluate derivative safely (optional debugging helper)
-// double secular_fd(const pp::vector& d, const pp::vector& u, int p, double lambda)
-// {
-//     double f = 1.0; // derivative of -(d[p]-λ) is +1
+    run_test("Test 1: D=diag(1,2,3,4), u=(1,1,1,1), p=1",
+             {1,2,3,4}, {1,1,1,1}, 1);
+    run_test("Test 2: D=diag(0,5,10), u=(2,-1,3), p=0",
+             {0,5,10}, {2,-1,3}, 0);
+    run_test("Test 3: D=diag(-2,-1,0,1,2), u=(1,0,-1,0,1), p=2",
+             {-2,-1,0,1,2}, {1,0,-1,0,1}, 2);
+    
 
-//     for(int k = 0; k < (int)d.size(); k++)
-//     {
-//         if(k == p) continue;
-//         double denom = (d[k] - lambda);
-//         f += (u[k]*u[k]) / (denom * denom);
-//     }
-//     return f;
-// }
 
-int main()
-{
-    int n = 5;
+    std::cout << "Now for big n\n";
+    std::cout << "The scaling of the execution time has been computed for matrix up to size n=800\n";
+    std::cout << "It is visualized in timing.svg. \n";
+    std::cout << "It shows that secular function is slower for approx n<650,\n";
+    std::cout << "but is much faster from approx n>650.\n";
+    std::cout << "By plotting a quadratic formula it is clear,\n";
+    std::cout << "the secular method scales quadraticly. \n";
+    std::cout << "While the EVD scales cubically. ";
 
-    pp::vector d(n), u(n);
+    std::ofstream out("timing.dat");
+    out << "0 0 0\n";
+    for (int n = 80; n<=800; n+=80){
+        std::vector<double> d(n);
+        std::vector<double> u(n);
+        double p;
 
-    d[0]=1; d[1]=2; d[2]=4; d[3]=7; d[4]=10;
-    u[0]=0.2; u[1]=-0.3; u[2]=0.5; u[3]=0.1; u[4]=-0.4;
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<> dist(0.0, 1.0);
 
-    std::vector<double> roots;
+        for (int i=0; i<n; i++){
+            d[i] = dist(gen);
+            u[i] = dist(gen);
+        }
+        p = dist(gen);
 
-    // ---- Step 2: interval-based guesses ----
-    std::vector<double> guess;
 
-    // left of first eigenvalue
-    guess.push_back(d[0] - 0.5);
+        auto start = std::chrono::high_resolution_clock::now();
+        auto eigs = eigen_rank2_update(d, u, p);
+        auto stop = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = stop - start;
 
-    // between diagonals
-    for(int i = 0; i < n-1; i++)
-    {
-        guess.push_back(0.5 * (d[i] + d[i+1]));
+        pp::matrix A = build_A(d, u, p);
+        auto start_EVD = std::chrono::high_resolution_clock::now();
+        pp::EVD evd(A);
+        auto stop_EVD = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed_EVD = stop_EVD - start_EVD;
+        
+        out << n << " " << elapsed << " " << elapsed_EVD << "\n";
     }
 
-    // right of last eigenvalue
-    guess.push_back(d[n+1] + 0.5);
-
-    // ---- Newton solve for each interval ----
-    for(int i = 0; i < (int)guess.size(); i++)
-    {
-        pp::vector x(1);
-        x[0] = guess[i];
-
-        auto f = make_f(d, u, 0); // p doesn't matter here in this scalar version
-
-        auto res = newton(
-            f,
-            x,
-            1e-12,   // accuracy
-            1e-10,   // alpha_min
-            50
-        );
-        double root = res[0];
-
-        // store (avoid duplicates)
-        bool ok = true;
-        for(double r : roots)
-            if(std::fabs(r - root) < 1e-8) ok = false;
-
-        if(ok) roots.push_back(root);
-    }
-
-    // ---- output ----
-    std::cout << "Eigenvalues:\n";
-    for(double r : roots)
-        std::cout << r << "\n";
+ 
 
     return 0;
 }
