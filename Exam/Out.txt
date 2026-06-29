@@ -2,6 +2,7 @@ Three tests have been made at n={4, 3, 5}
 They show Secular and EVD estimate approximatly the same values. 
 The eigenvector for each eigenvalue has also been computed,
 with residuales being very low.
+
 === Test 1: D=diag(1,2,3,4), u=(1,1,1,1), p=1 ===
     k             Secular                 EVD        |difference|
 -----------------------------------------------------------------
